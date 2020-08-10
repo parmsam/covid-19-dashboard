@@ -1,0 +1,128 @@
+* {
+  font-family: Recursive, Palatino, Lobster;
+}
+
+.head {
+  max-width: 100%;
+}
+
+h1 {
+  text-align: center;
+  color: crimson;
+;}
+
+h2 {
+  text-align: center;
+}
+h3 {
+  text-align: center;
+  color: red;
+;}
+
+.Page1_title {
+ color: indianred;
+ margin-left: auto;
+ margin-right: auto;
+ max-width: 50%;
+ /* text-decoration: underline; */
+}
+
+.my_dataviz {
+  text-align: center;
+  /* position: relative; */
+  width: 100%;
+  height: 100%;
+}
+
+.legend_usa {
+  text-align: center;
+  /* position: relative; */
+  width: 95%;
+  height: 100%;
+}
+
+#select {
+  padding-left: 2em;
+}
+
+
+#selectButton {
+  position: relative;
+  left:12%;
+  right:50%;
+  margin-left: auto; margin-right: auto; max-width: 50%;
+}
+
+#selectMeasure {
+  position: relative;
+  left: 12%;
+  right: 50%;
+  margin-left: auto; margin-right: auto; max-width: 50%;
+}
+
+.case_death_text {
+  text-align: center;
+}
+
+.enter_button {
+  position: relative;
+  left:49%;
+  font-size:25px;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+
+.annotation path {
+  stroke: #00796B;
+}
+
+.annotation:not(.above):not(.anomaly) path {
+  stroke-dasharray: 1,3;
+  opacity: 0.5;
+}
+
+.annotation text {
+  fill: black ;
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.annotation.above path {
+  stroke: darkred;
+}
+
+.annotation-note-bg {
+  fill: rgba(0, 0, 0, 0);
+}
+
+path:hover {
+	fill-opacity: .7;
+}
+
+div.tooltip {
+ 	position: absolute;
+	text-align: center;
+	width: 120px;
+	/* height: 80px; */
+	padding: 2px;
+	background: snow;
+/* border: 1px; */
+  border: 1.5px solid indianred;
+  /* border-color: black; */
+	border-radius: 8px;
+	pointer-events: none;
+  font-size: 13px;
+
+}
+
+.legend {
+	position:absolute;
+	left:20%;
+	top:70%;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Sam's COVID-19 Dashboard</title>
+  </head>
+
+  <body>
+
+    <h1 class="Page1_title">Sam's COVID-19 Dashboard</h2>
+
+    <div id="my_dataviz_usa" class="my_dataviz"></div>
+
+    <p class="legend_usa" style="margin:0"><b>Cases per 100K </b></p>
+    <div id="legend1" class="legend_usa"></div>
+
+    <script src="usa_map.js"></script>
+    <br><br>
+
+    <div style="text-align: center;  height: 100%; width: 100%; margin:0;" >
+      Date Source:
+      <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data">
+            JHU CSSE COVID-19 Dataset</a>
+      <br>
+      <p style="position: relative; max-width: 50%; margin-left: auto; margin-right: auto">
+        Note that dashboard is updated automatically based on JHU CSSE Github Data Extracts.
+      </p>
+    </div>
+
+    <br><br>
+    <div style="max-width: 50%; margin-left: auto; margin-right: auto;">
+    <div id="my_dataviz_state_trend"></div>
+    <!--<script src="state_case_trend.js"></script> -->
+    </div>
+    <br>
+
+    <!-- <div style="text-align: center;  height: 100%; width: 100%; margin:0;">
+      Date Source: <a href="https://hub.mph.in.gov/dataset/covid-19-case-trend/resource/182b6742-edac-442d-8eeb-62f96b17773e">
+            Indiana Gov Management Performance Hub COVID-19 State Trend Data</a>
+    </div> -->
+
+  </body>
+
+</html>
