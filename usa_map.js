@@ -358,7 +358,7 @@ function hue(h) {
         d3.selectAll("#legend1 > *").remove();
         d3.selectAll("#legend1 > *").remove();
         d3.selectAll("#my_dataviz_usa > *").remove();
-        updateData().transition(30);
+        updateData();
       };
 
 ////////////////////////
