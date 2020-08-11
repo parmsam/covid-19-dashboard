@@ -142,7 +142,7 @@ function(data) {
 
 
   var max_incident_rate = d3.max( data, function(d) { return +d['Incident_Rate']});
-  var color_scale = d3.scaleLinear().domain([0, max_incident_rate]).range(['cyan', 'darkblue']);
+  var color_scale = d3.scaleLinear().domain([0, max_incident_rate]).range(['white', 'blue']);
 
 //color.domain([0,1]); // setting the range of the input data
 // Load GeoJSON data and merge with states data
@@ -288,12 +288,12 @@ function(data) {
 
    legend.append("stop")
      .attr("offset", "0%")
-     .attr("stop-color", "cyan")
+     .attr("stop-color", "white")
      .attr("stop-opacity", 1);
 
    legend.append("stop")
      .attr("offset", "100%")
-     .attr("stop-color", "darkblue")
+     .attr("stop-color", "blue")
      .attr("stop-opacity", 1);
 
    key.append("rect")
