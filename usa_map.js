@@ -265,6 +265,8 @@ function(data) {
 
 	});
 
+  d3.selectAll("#legend1 > *").remove();
+
   var w = 450, h = 50;
 
    var key = d3.select("#legend1")
@@ -328,6 +330,17 @@ function(data) {
 updateData();
 
 
+function move_h(h) {
+  handle.attr("cx", x(h));
+  label
+    .attr("x", x(h))
+    // .text(formatDate(h));
+    .text(
+      weekday[(h).getDay()] + " " +
+        monthShortNames[(h).getMonth()] + " " +
+        (h).getDate() + " "+ (h).getFullYear());
+}
+
 function hue(h) {
         handle.attr("cx", x(h));
         label
@@ -345,7 +358,7 @@ function hue(h) {
         d3.selectAll("#legend1 > *").remove();
         d3.selectAll("#legend1 > *").remove();
         d3.selectAll("#my_dataviz_usa > *").remove();
-        updateData();
+        updateData().transition(30);
       };
 
 ////////////////////////
@@ -382,8 +395,22 @@ slider.append("line")
   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
     .attr("class", "track-overlay")
     .call(d3.drag()
-        .on("start.interrupt", function() { slider.interrupt(); })
-        .on("start drag", function() { hue(x.invert(d3.event.x));}));
+        .on("start.interrupt", function() {
+          slider.interrupt();
+          // hue(x.invert(d3.event.x));
+          // d3.selectAll("#legend1 > *").remove();
+        })
+        .on("start drag", function() {
+          move_h(x.invert(d3.event.x));
+          // hue(x.invert(d3.event.x));
+          // d3.selectAll("#legend1 > *").remove();
+        })
+        .on("end", function() {
+          d3.selectAll("#legend1 > *").remove();
+          hue(x.invert(d3.event.x));
+        })
+
+      );
 
 slider.insert("g", ".track-overlay")
     .attr("class", "ticks")
