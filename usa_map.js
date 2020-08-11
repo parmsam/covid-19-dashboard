@@ -19,20 +19,21 @@ weekday[5] = "Fri";
 weekday[6] = "Sat";
 
 
-
-
 var today = new Date();
-if(today.getMonth()+1 < 10){
-var month = '0' + (today.getMonth()+1);
-}
-else var month = (today.getMonth()+1);
+var yesterday = new Date(today);
+yesterday.setDate(yesterday.getDate() - 2); //day before yesterday instead
 
-if ((today.getDate()-1)<10){
-var yesterday = "0" + (today.getDate()-1);
+if(yesterday.getMonth()+1 < 10){
+var month = '0' + (yesterday.getMonth()+1);
 }
-else var yesterday = (today.getDate()-1);
+else var month = (yesterday.getMonth()+1);
 
-var yesterday_date = month +'-'+ yesterday +'-'+ today.getFullYear();
+if ((yesterday.getDate()-1)<10){
+var yesterday_day = "0" + (yesterday.getDate());
+}
+else var yesterday_day = (yesterday.getDate());
+
+var yesterday_date = month +'-'+ yesterday_day +'-'+ today.getFullYear();
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -52,18 +53,6 @@ var color = d3.scaleLinear()
 
 
 var legendText = ["Incident Rate"];
-
-//Create SVG element and append map to the SVG
-var svg = d3.select("#my_dataviz_usa")
-			.append("svg")
-			.attr("width", width)
-			.attr("height", height);
-
-// Append Div for tooltip to SVG
-var div = d3.select("#my_dataviz_usa")
-		    .append("div")
-   		.attr("class", "tooltip")
-   		.style("opacity", 0);
 
 // JS wrap text function (wrapping function taken from https://stackoverflow.com/questions/24784302/wrapping-text-in-d3/24785497)
 function wrap(text, width) {
@@ -99,14 +88,33 @@ function wrap(text, width) {
     });
 }
 
+
+
 var csv_file_name = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports_us/" +
-yesterday_date +
+  yesterday_date +
 ".csv";
+
+////////////////////
+
 
 //test file csv
 //var csv_file_name = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports_us/08-08-2020.csv";
 
 // Load in my states data!
+function updateData() {
+
+//Create SVG element and append map to the SVG
+var svg = d3.select("#my_dataviz_usa")
+			.append("svg")
+			.attr("width", width)
+			.attr("height", height);
+
+// Append Div for tooltip to SVG
+var div = d3.select("#my_dataviz_usa")
+		    .append("div")
+   		.attr("class", "tooltip")
+   		.style("opacity", 0);
+
 d3.csv(csv_file_name,
 function(data) {
   var sum_confirmed = d3.sum( data, function(d) { return +d['Confirmed']});
@@ -247,10 +255,10 @@ function(data) {
         .attr("y", 0 + 50)
         .attr("text-anchor", "middle")
         .style("font-size", "20px")
-        .text("COVID-19 State Case Rates in USA as of " +
-        weekday[(last_update).getDay()] + " " +
-          monthShortNames[(last_update).getMonth()] + " " +
-          (last_update).getDate()
+        .text("COVID-19 State Case Rates in USA for " +
+        weekday[(yesterday).getDay()] + " " +
+          monthShortNames[(yesterday).getMonth()] + " " +
+          (yesterday).getDate()
         )
         .attr("font-weight","bold");
 
@@ -290,7 +298,7 @@ function(data) {
      .attr("width", w)
      .attr("height", h - 30)
      .style("fill", "url(#gradient)")
-     .attr("transform", "translate(20,10)");
+     .attr("transform", "translate(50,10)");
 
    var y = d3.scaleLinear()
      .range([450, 0])
@@ -303,7 +311,7 @@ function(data) {
 
    key.append("g")
      .attr("class", "y axis")
-     .attr("transform", "translate(20,30)")
+     .attr("transform", "translate(50,30)")
      .call(yAxis)
      .append("text")
      .attr("transform", "rotate(-90)")
@@ -312,4 +320,94 @@ function(data) {
      .style("text-anchor", "end")
      .text("axis title");
 
+
+
 });
+};
+
+updateData();
+
+
+function hue(h) {
+        handle.attr("cx", x(h));
+        label
+          .attr("x", x(h))
+          // .text(formatDate(h));
+          .text(
+            weekday[(h).getDay()] + " " +
+              monthShortNames[(h).getMonth()] + " " +
+              (h).getDate() + " "+ (h).getFullYear());
+        //svg.style("background-color", d3.hsl(h/1000000000, 0.8, 0.8));
+        yesterday_date = formatDate(h);
+        yesterday = h;
+        csv_file_name = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports_us/" +
+          yesterday_date + ".csv";
+        d3.selectAll("#legend1 > *").remove();
+        d3.selectAll("#legend1 > *").remove();
+        d3.selectAll("#my_dataviz_usa > *").remove();
+        updateData();
+      };
+
+////////////////////////
+var formatDateIntoYear = d3.timeFormat("%b");
+var formatDate = d3.timeFormat("%m-%d-%Y");
+
+var endDate = new Date("04-12-2020"),
+    startDate = new Date(yesterday_date);
+
+var margin_slider = {top:0, right:0  , bottom:0, left: 0},
+    width_slider = 400;
+    height_slider = 100;
+
+var slider_svg = d3.select("#slider")
+    .append("svg")
+    .attr("width", width + margin_slider.left + margin_slider.right)
+    .attr("height", height_slider-15);
+
+var x = d3.scaleTime()
+    .domain([startDate, endDate])
+    .range([0, width_slider])
+    .clamp(true);
+
+var slider = slider_svg.append("g")
+    .attr("class", "slider")
+   .attr("transform", "translate(" + 220 + "," + height_slider / 2 + ")");
+
+slider.append("line")
+    .attr("class", "track")
+    .attr("x1", x.range()[0])
+    .attr("x2", x.range()[1])
+  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+    .attr("class", "track-inset")
+  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+    .attr("class", "track-overlay")
+    .call(d3.drag()
+        .on("start.interrupt", function() { slider.interrupt(); })
+        .on("start drag", function() { hue(x.invert(d3.event.x));}));
+
+slider.insert("g", ".track-overlay")
+    .attr("class", "ticks")
+    .attr("transform", "translate(0," + 20 + ")")
+  .selectAll("text")
+    .data(x.ticks(8))
+    .enter()
+    .append("text")
+    .attr("x", x)
+    .attr("y", 10)
+    .attr("text-anchor", "middle")
+    .text(function(d) { return formatDateIntoYear(d); });
+
+var label = slider.append("text")
+    .attr("class", "label")
+    .attr("text-anchor", "middle")
+    // .text(formatDate(startDate))
+    .text(
+      weekday[(startDate).getDay()] + " " +
+        monthShortNames[(startDate).getMonth()] + " " +
+        (startDate).getDate() + " " + (startDate).getFullYear() )
+    .attr("transform", "translate(0," + (-25) + ")");
+
+var handle = slider.insert("circle", ".track-overlay")
+    .attr("class", "handle")
+    .attr("r", 9);
+      ////////////////////////
