@@ -174,3 +174,24 @@ div.tooltip {
   stroke-opacity: 0.5;
   stroke-width: 1.25px;
 }
+
+#play-button {
+  position: absolute;
+  /* top: 140px;
+  left: 50px; */
+  left:60%;
+  background: #f08080;
+  padding-right: 26px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0 12px;
+  /* width: 60px; */
+  cursor: pointer;
+  height: 30px;
+}
+
+#play-button:hover {
+  background-color: #696969;
+}

@@ -262,6 +262,22 @@ function(data) {
         )
         .attr("font-weight","bold");
 
+    playButton
+        .on("click", function() {
+        var button = d3.select(this);
+        if (button.text() == "Pause") {
+          moving = false;
+          clearInterval(timer);
+          // timer = 0;
+          button.text("Play");
+        } else {
+          moving = true;
+          timer = setInterval(step, 650);
+          button.text("Pause");
+        }
+        console.log("Slider moving: " + moving);
+      })
+
 
 	});
 
@@ -355,7 +371,16 @@ function hue(h) {
         yesterday = h;
         csv_file_name = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports_us/" +
           yesterday_date + ".csv";
-        d3.selectAll("#legend1 > *").remove();
+        d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.9)
+        d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.8)
+        d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.7)
+        d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.6)
+        d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.5)
+        d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.4)
+        d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.3)
+        d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.2)
+        d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.1)
+
         d3.selectAll("#legend1 > *").remove();
         d3.selectAll("#my_dataviz_usa > *").remove();
         updateData();
@@ -438,3 +463,21 @@ var handle = slider.insert("circle", ".track-overlay")
     .attr("class", "handle")
     .attr("r", 9);
       ////////////////////////
+
+var moving = false;
+var currentValue = 400;
+var targetValue = width_slider;
+var playButton = d3.select("#play-button");
+
+function step() {
+  hue(x.invert(currentValue));
+  currentValue = currentValue - (targetValue/40);
+  if (currentValue > targetValue) {
+    moving = false;
+    currentValue = 0;
+    clearInterval(timer);
+    // timer = 0;
+    playButton.text("Play");
+    console.log("Slider moving: " + moving);
+  }
+}
