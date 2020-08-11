@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
 var margin = {top: 0, right: 0, bottom: 0, left:0},
     width = 875;
-    height = 600;
+    height = 622;
 
 //following code based on http://bl.ocks.org/michellechandra/0b2ce4923dc9b5809922;
 //using d3.v4 instead of v3 which tutorial above is based on
@@ -107,7 +107,10 @@ function updateData() {
 var svg = d3.select("#my_dataviz_usa")
 			.append("svg")
 			.attr("width", width)
-			.attr("height", height);
+			.attr("height", height)
+      // .attr("preserveAspectRatio", "xMinYMin meet")
+      // .attr("viewBox", "0 0 500 450")
+      ;
 
 // Append Div for tooltip to SVG
 var div = d3.select("#my_dataviz_usa")
@@ -120,26 +123,45 @@ function(data) {
   var sum_confirmed = d3.sum( data, function(d) { return +d['Confirmed']});
   var sum_deaths = d3.sum( data, function(d) { return +d['Deaths']});
   var sum_people_tested = d3.sum( data, function(d) { return +d['People_Tested']});
+  var sum_people_recovered = d3.sum( data, function(d) { return +d['Recovered']});
+  var sum_people_active = d3.sum( data, function(d) { return +d['Active']});
+  var sum_people_hospitalized = d3.sum( data, function(d) { return +d['People_Hospitalized']});
 
   svg.append("text")
-		.text(numberWithCommas(sum_confirmed) + " U.S. Cases")
+		.text(numberWithCommas(sum_confirmed) + " U.S. Total Cases")
 		.attr("x",margin.left + ((width + 100)/8))
 		.attr("y", 560)
     .attr("fill","mediumblue");
 
   svg.append("text")
 		.text(numberWithCommas(sum_deaths) + " U.S. Deaths")
-		.attr("x",margin.left + ((width + 100)/3))
+		.attr("x",margin.left + ((width + 100)/2.5))
 		.attr("y", 560)
     .attr("fill","crimson");
 
-
   svg.append("text")
 		.text(numberWithCommas(sum_people_tested) + " U.S. Tests")
-		.attr("x",margin.left + ((width + 100)/1.85))
+		.attr("x",margin.left + ((width + 100)/1.6))
 		.attr("y", 560)
     .attr("fill","green");
 
+  svg.append("text")
+		.text(numberWithCommas(sum_people_recovered) + " U.S. Recoveries")
+		.attr("x",margin.left + ((width + 100)/6.5))
+		.attr("y", 620)
+    .attr("fill","steelblue");
+
+  svg.append("text")
+		.text(numberWithCommas(sum_people_active) + " U.S. Active Cases")
+		.attr("x",margin.left + ((width + 100)/6.5))
+		.attr("y", 590)
+    .attr("fill","royalblue");
+
+  svg.append("text")
+  		.text(numberWithCommas(sum_people_hospitalized) + " U.S. Hospitalized")
+  		.attr("x",margin.left + ((width + 100)/2.5))
+  		.attr("y", 590)
+      .attr("fill","purple");
 
   var max_incident_rate = d3.max( data, function(d) { return +d['Incident_Rate']});
   var color_scale = d3.scaleLinear().domain([0, max_incident_rate]).range(['white', 'blue']);
@@ -343,7 +365,7 @@ function(data) {
 });
 };
 
-updateData();
+//updateData();
 
 
 function move_h(h) {
@@ -371,6 +393,8 @@ function hue(h) {
         yesterday = h;
         csv_file_name = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports_us/" +
           yesterday_date + ".csv";
+
+        //attempt to fade map out (not sure if this works)
         d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.9)
         d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.8)
         d3.selectAll("#my_dataviz_usa > *").attr("opacity",0.7)
@@ -390,8 +414,11 @@ function hue(h) {
 var formatDateIntoYear = d3.timeFormat("%b");
 var formatDate = d3.timeFormat("%m-%d-%Y");
 
-var endDate = new Date("04-12-2020"),
-    startDate = new Date(yesterday_date);
+// var endDate = new Date("04-12-2020"),
+//     startDate = new Date(yesterday_date);
+var startDate = new Date("04-12-2020"),
+    endDate = new Date(yesterday_date);
+
 
 var margin_slider = {top:0, right:0  , bottom:0, left: 0},
     width_slider = 400;
@@ -465,13 +492,13 @@ var handle = slider.insert("circle", ".track-overlay")
       ////////////////////////
 
 var moving = false;
-var currentValue = 400;
+var currentValue = 0;
 var targetValue = width_slider;
 var playButton = d3.select("#play-button");
 
 function step() {
   hue(x.invert(currentValue));
-  currentValue = currentValue - (targetValue/40);
+  currentValue = currentValue + (targetValue/40);
   if (currentValue > targetValue) {
     moving = false;
     currentValue = 0;
@@ -481,3 +508,5 @@ function step() {
     console.log("Slider moving: " + moving);
   }
 }
+
+hue(x.invert(width_slider));

@@ -32,8 +32,19 @@ h3 {
   /* position: relative; */
   width: 100%;
   height: 100%;
+  /* display: inline-block;
+ position: relative;
+ width: 100%;
+ vertical-align: top;
+ overflow: hidden; */
 }
 
+.svg-content {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 .legend_usa {
   text-align: center;
   /* position: relative; */
@@ -179,7 +190,7 @@ div.tooltip {
   position: absolute;
   /* top: 140px;
   left: 50px; */
-  left:60%;
+  left:46%;
   background: #f08080;
   padding-right: 26px;
   border-radius: 3px;

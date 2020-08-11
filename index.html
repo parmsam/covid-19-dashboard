@@ -18,7 +18,7 @@
     <h1 class="Page1_title">Sam's COVID-19 Dashboard</h2>
 
     <div id="my_dataviz_usa" class="my_dataviz"></div>
-    <p class="legend_usa" style="margin:0"><b>Cases per 100K </b></p>
+    <p class="legend_usa"><b>Cases per 100K </b></p>
     <div id="legend1" class="legend_usa"></div>
     <br>
     <div id="slider" class="slider"></div>
@@ -33,7 +33,7 @@
 
     <div style="text-align: center;  height: 100%; width: 100%; margin:0; font-size: 12px;" >
       <p style="position: relative; max-width: 50%; margin-left: auto; margin-right: auto">
-        Note that dashboard is updated automatically daily based on JHU CSSE Github Data Extracts.
+        Note that this web page is updated automatically daily based on JHU CSSE State Reports.
       </p>
       Date Source:
       <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data">
@@ -48,76 +48,12 @@
     </div>
 
     <br><br>
-    <div style="max-width: 50%; margin-left: auto; margin-right: auto;">
-    <div id="my_dataviz_state_trend" class="legend_usa"></div>
+    <!-- <div style="max-width: 50%; margin-left: auto; margin-right: auto;"> -->
+    <!-- <div id="my_dataviz_state_trend" class="legend_usa"></div> -->
     <!--<script src="state_case_trend.js"></script> -->
-    </div>
+    <!-- </div> -->
 
     <script>
-    // var formatDateIntoYear = d3.timeFormat("%b");
-    // var formatDate = d3.timeFormat("%Y-%m-%d");
-    //
-    // var endDate = new Date("2020-04-12"),
-    //     startDate = new Date("2020-08-09");
-    //
-    // var margin = {top:0, right:50, bottom:0, left:50},
-    //     width = 600 -margin.left - margin.right,
-    //     height = 500 - margin.top - margin.bottom;
-    //
-    // var svg = d3.select("#slider")
-    //     .append("svg")
-    //     .attr("width", width + margin.left + margin.right)
-    //     .attr("height", height);
-    //
-    // var x = d3.scaleTime()
-    //     .domain([startDate, endDate])
-    //     .range([0, width])
-    //     .clamp(true);
-    //
-    // var slider = svg.append("g")
-    //     .attr("class", "slider")
-    //     .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
-    //
-    // slider.append("line")
-    //     .attr("class", "track")
-    //     .attr("x1", x.range()[0])
-    //     .attr("x2", x.range()[1])
-    //   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-    //     .attr("class", "track-inset")
-    //   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-    //     .attr("class", "track-overlay")
-    //     .call(d3.drag()
-    //         .on("start.interrupt", function() { slider.interrupt(); })
-    //         .on("start drag", function() { hue(x.invert(d3.event.x)); }));
-    //
-    // slider.insert("g", ".track-overlay")
-    //     .attr("class", "ticks")
-    //     .attr("transform", "translate(0," + 18 + ")")
-    //   .selectAll("text")
-    //     .data(x.ticks(8))
-    //     .enter()
-    //     .append("text")
-    //     .attr("x", x)
-    //     .attr("y", 10)
-    //     .attr("text-anchor", "middle")
-    //     .text(function(d) { return formatDateIntoYear(d); });
-    //
-    // var label = slider.append("text")
-    //     .attr("class", "label")
-    //     .attr("text-anchor", "middle")
-    //     .text(formatDate(startDate))
-    //     .attr("transform", "translate(0," + (-25) + ")")
-    // var handle = slider.insert("circle", ".track-overlay")
-    //     .attr("class", "handle")
-    //     .attr("r", 9);
-    //
-    // function hue(h) {
-    //   handle.attr("cx", x(h));
-    //   label
-    //     .attr("x", x(h))
-    //     .text(formatDate(h));
-    //   //svg.style("background-color", d3.hsl(h/1000000000, 0.8, 0.8));
-    // }
     </script>
 
 
