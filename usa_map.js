@@ -130,13 +130,13 @@ function(data) {
 
   svg.append("text")
 		.text(numberWithCommas(sum_confirmed) + " U.S. Total Cases")
-		.attr("x",margin.left + ((width + 100)/8))
+		.attr("x",margin.left + ((width + 100)/9))
 		.attr("y", 560)
     .attr("fill","mediumblue");
 
   svg.append("text")
 		.text(numberWithCommas(sum_deaths) + " U.S. Deaths")
-		.attr("x",margin.left + ((width + 100)/2.5))
+		.attr("x",margin.left + ((width + 100)/2.6))
 		.attr("y", 560)
     .attr("fill","crimson");
 
@@ -148,19 +148,19 @@ function(data) {
 
   svg.append("text")
 		.text(numberWithCommas(sum_people_recovered) + " U.S. Recoveries")
-		.attr("x",margin.left + ((width + 100)/6.5))
+		.attr("x",margin.left + ((width + 100)/7.5))
 		.attr("y", 620)
     .attr("fill","steelblue");
 
   svg.append("text")
 		.text(numberWithCommas(sum_people_active) + " U.S. Active Cases")
-		.attr("x",margin.left + ((width + 100)/6.5))
+		.attr("x",margin.left + ((width + 100)/7.5))
 		.attr("y", 590)
     .attr("fill","royalblue");
 
   svg.append("text")
   		.text(numberWithCommas(sum_people_hospitalized) + " U.S. Hospitalized")
-  		.attr("x",margin.left + ((width + 100)/2.5))
+  		.attr("x",margin.left + ((width + 100)/2.6))
   		.attr("y", 590)
       .attr("fill","purple");
 
@@ -280,23 +280,21 @@ function(data) {
                     .style("opacity", 0);
              })
     	.style("fill", function(d) {
-
     	// Get data value
     	//var value = d.properties.mystate;
     	// var value = d.properties.incident_rate;
-      var value = d.properties[rateSelect];
+        var value = d.properties[rateSelect];
 
-    	if (value) {
-    	//If value exists…
-    	// return color(value);
-    	return color_scale(value);
-    	} else {
-    	//If value is undefined…
-    	// return "rgb(213,222,217)";
-      return color_scale(value);
-    	}
-    })
-    ;
+      	if (value) {
+      	//If value exists…
+      	// return color(value);
+      	return color_scale(value);
+      	} else {
+      	//If value is undefined…
+      	// return "rgb(213,222,217)";
+        return color_scale(value);
+      	}
+      });
 
     svg.append("text")
         .attr("x", (width / 2))

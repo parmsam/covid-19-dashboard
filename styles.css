@@ -212,7 +212,7 @@ div.tooltip {
   position: absolute;
   /* top: 140px;
   left: 50px; */
-  top: 721px;
+  top: 832px;
   left:33%;
   background: mediumblue;
   padding-right: 26px;
@@ -233,7 +233,7 @@ div.tooltip {
   position: absolute;
   /* top: 140px;
   left: 50px; */
-  top: 721px;
+  top: 832px;
   left: 48%;
   background: firebrick;
   padding-right: 26px;
@@ -252,7 +252,7 @@ div.tooltip {
 
 #testing-button {
   position: absolute;
-  top: 721px;
+  top: 832px;
   left: 63%;
   /* left:10%; */
   background: forestgreen;
