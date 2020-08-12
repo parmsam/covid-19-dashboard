@@ -48,16 +48,18 @@ h3 {
 .legend_usa {
   text-align: center;
   /* position: relative; */
-  width: 95%;
-  height: 100%;
+  /* width: 95%;
+  height: 100%; */
 }
 
 
 .slider {
-  text-align: center;
-  /* position: relative; */
+  /* text-align: center; */
+  position: relative;
   width: 100%;
   height: 100%;
+  left:28%;
+  right:50%;
 }
 
 
@@ -133,7 +135,7 @@ div.tooltip {
 	padding: 2px;
 	background: snow;
 /* border: 1px; */
-  border: 1.5px solid indianred;
+  border: 1.5px solid maroon;
   /* border-color: black; */
 	border-radius: 8px;
 	pointer-events: none;
@@ -190,7 +192,7 @@ div.tooltip {
   position: absolute;
   /* top: 140px;
   left: 50px; */
-  left:46%;
+  left:48%;
   background: #f08080;
   padding-right: 26px;
   border-radius: 3px;
@@ -202,7 +204,68 @@ div.tooltip {
   cursor: pointer;
   height: 30px;
 }
-
 #play-button:hover {
+  background-color: #696969;
+}
+
+#case-button {
+  position: absolute;
+  /* top: 140px;
+  left: 50px; */
+  top: 715px;
+  left:33%;
+  background: mediumblue;
+  padding-right: 26px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0 12px;
+  /* width: 60px; */
+  cursor: pointer;
+  height: 30px;
+}
+#case-button:hover {
+  background-color: #696969;
+}
+
+#death-button {
+  position: absolute;
+  /* top: 140px;
+  left: 50px; */
+  top: 715px;
+  left: 48%;
+  background: firebrick;
+  padding-right: 26px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0 12px;
+  /* width: 60px; */
+  cursor: pointer;
+  height: 30px;
+}
+#death-button:hover {
+  background-color: #696969;
+}
+
+#testing-button {
+  position: absolute;
+  top: 715px;
+  left: 63%;
+  /* left:10%; */
+  background: forestgreen;
+  padding-right: 26px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0 12px;
+  /* width: 60px; */
+  cursor: pointer;
+  height: 30px;
+}
+#testing-button:hover {
   background-color: #696969;
 }

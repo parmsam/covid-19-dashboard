@@ -96,7 +96,8 @@ var csv_file_name = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/m
 
 ////////////////////
 
-
+var rateColor = "blue";
+var rateSelect = "incident_rate";
 //test file csv
 //var csv_file_name = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports_us/08-08-2020.csv";
 
@@ -163,8 +164,32 @@ function(data) {
   		.attr("y", 590)
       .attr("fill","purple");
 
-  var max_incident_rate = d3.max( data, function(d) { return +d['Incident_Rate']});
-  var color_scale = d3.scaleLinear().domain([0, max_incident_rate]).range(['white', 'blue']);
+
+  var max_rate = d3.max( data, function(d) {
+    if (rateSelect === "incident_rate"){
+      return +d['Incident_Rate'];
+    }
+    else if (rateSelect === "mortality_rate"){
+      return +d['Mortality_Rate'];
+    }
+    else if (rateSelect === "test_rate"){
+      return +d['Testing_Rate'];
+    }
+  });
+
+  var title_text = function(rateSelect) {
+    if (rateSelect === "incident_rate"){
+      return "Case Rates (per 100K persons)";
+    }
+    else if (rateSelect === "mortality_rate"){
+      return "Death Rates (per 100 CCs)";
+    }
+    else if (rateSelect === "test_rate"){
+      return "Testing Rates (per 100K persons)";
+    };
+  }
+
+  var color_scale = d3.scaleLinear().domain([0, max_rate]).range(['white', rateColor]);
 
 //color.domain([0,1]); // setting the range of the input data
 // Load GeoJSON data and merge with states data
@@ -258,7 +283,8 @@ function(data) {
 
     	// Get data value
     	//var value = d.properties.mystate;
-    	var value = d.properties.incident_rate;
+    	// var value = d.properties.incident_rate;
+      var value = d.properties[rateSelect];
 
     	if (value) {
     	//If value exists…
@@ -277,7 +303,7 @@ function(data) {
         .attr("y", 0 + 50)
         .attr("text-anchor", "middle")
         .style("font-size", "20px")
-        .text("COVID-19 State Case Rates in USA for " +
+        .text("COVID-19 State "+title_text(rateSelect)+ " in USA for " +
         weekday[(yesterday).getDay()] + " " +
           monthShortNames[(yesterday).getMonth()] + " " +
           (yesterday).getDate()
@@ -331,7 +357,7 @@ function(data) {
 
    legend.append("stop")
      .attr("offset", "100%")
-     .attr("stop-color", "blue")
+     .attr("stop-color", rateColor)
      .attr("stop-opacity", 1);
 
    key.append("rect")
@@ -342,7 +368,7 @@ function(data) {
 
    var y = d3.scaleLinear()
      .range([450, 0])
-     .domain([max_incident_rate,0]);
+     .domain([max_rate,0]);
 
 
    var yAxis = d3.axisBottom()
@@ -494,7 +520,11 @@ var handle = slider.insert("circle", ".track-overlay")
 var moving = false;
 var currentValue = 0;
 var targetValue = width_slider;
+
 var playButton = d3.select("#play-button");
+var caseButton = d3.select("#case-button");
+var deathButton = d3.select("#death-button");
+var testingButton = d3.select("#testing-button");
 
 function step() {
   hue(x.invert(currentValue));
@@ -508,5 +538,32 @@ function step() {
     console.log("Slider moving: " + moving);
   }
 }
+caseButton
+    .on("click", function() {
+      rateColor = "blue";
+      rateSelect = "incident_rate";
+      d3.selectAll("#legend1 > *").remove();
+      d3.selectAll("#my_dataviz_usa > *").remove();
+      updateData();
+  })
+
+deathButton
+    .on("click", function() {
+      rateColor = "red";
+      rateSelect = "mortality_rate";
+      d3.selectAll("#legend1 > *").remove();
+      d3.selectAll("#my_dataviz_usa > *").remove();
+      updateData();
+
+  })
+testingButton
+    .on("click", function() {
+      rateColor = "green";
+      rateSelect = "test_rate";
+      d3.selectAll("#legend1 > *").remove();
+      d3.selectAll("#my_dataviz_usa > *").remove();
+      updateData();
+
+  })
 
 hue(x.invert(width_slider));
