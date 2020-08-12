@@ -2,7 +2,7 @@
 using d3.js
 
 ## Purpose:
-Provide a simple and interactive dashboard on COVID-19 in USA that updates automatically.
+Provide a simple and interactive dashboard on COVID-19 in the USA that updates automatically.
 
 ## Data sources:
 [JHU CSSE COVID-19 Dataset (USA daily state reports)](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)
