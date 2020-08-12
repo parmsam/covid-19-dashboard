@@ -267,9 +267,9 @@ function(data) {
                 // "Hosp.: " + d.properties.hospitalized + "<br>" +
                  "Tests: " + numberWithCommas(d.properties.tested) + "<br><br>" +
                 "Case Rate (per 100K): " + numberWithCommas(Math.round(d.properties.incident_rate)) + "<br>" +
-                "Death Rate (per 100CCs): " + numberWithCommas(Math.round(d.properties.mortality_rate*100)/100) + "<br>"
+                "Death Rate (per 100CCs): " + numberWithCommas(Math.round(d.properties.mortality_rate*100)/100) + "<br>" +
                 // "Hosp Rate (%): " + Math.round(d.properties.hospitalization_rate) + "<br>"
-                 // "Testing Rate (per 100K): " + Math.round(d.properties.test_rate*10)/10 + "<br>"
+                 "Testing Rate (per 100K): " + numberWithCommas(Math.round(d.properties.test_rate*10)/10) + "<br>"
               )
           	})
 
