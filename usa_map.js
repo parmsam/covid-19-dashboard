@@ -179,13 +179,13 @@ function(data) {
 
   var title_text = function(rateSelect) {
     if (rateSelect === "incident_rate"){
-      return "Case Rates (per 100K persons)";
+      return "Cases per 100K Persons";
     }
     else if (rateSelect === "mortality_rate"){
-      return "Death Rates (per 100 CCs)";
+      return "Deaths per 100 Confirmed Cases (CCs)";
     }
     else if (rateSelect === "test_rate"){
-      return "Testing Rates (per 100K persons)";
+      return "Tests per 100K Persons";
     };
   }
 
