@@ -4,6 +4,9 @@ using d3.js
 ## Purpose:
 Provide a simple and interactive dashboard on COVID-19 in the USA that updates automatically. 
 
+## Limitations:
+* Web page currently only loads successfully in Google Chrome. 
+
 ## Update frequency:
 Web page will update automatically with day before yesterday data (requires page reload in browser).
 
