@@ -124,10 +124,10 @@ d3.csv(csv_file_name,
 function(data) {
   var sum_confirmed = d3.sum( data, function(d) { return +d['Confirmed']});
   var sum_deaths = d3.sum( data, function(d) { return +d['Deaths']});
-//   var sum_people_tested = d3.sum( data, function(d) { return +d['People_Tested']});
+  var sum_people_tested = d3.sum( data, function(d) { return +d['People_Tested']});
   var sum_people_recovered = d3.sum( data, function(d) { return +d['Recovered']});
   var sum_people_active = d3.sum( data, function(d) { return +d['Active']});
-//   var sum_people_hospitalized = d3.sum( data, function(d) { return +d['People_Hospitalized']});
+  var sum_people_hospitalized = d3.sum( data, function(d) { return +d['People_Hospitalized']});
 
   svg.append("text")
 		.text(numberWithCommas(sum_confirmed) + " U.S. Total Cases")
@@ -170,24 +170,24 @@ function(data) {
     if (rateSelect === "incident_rate"){
       return +d['Incident_Rate'];
     }
-//     else if (rateSelect === "mortality_rate"){
-//       return +d['Mortality_Rate'];
-//     }
-//     else if (rateSelect === "test_rate"){
-//       return +d['Testing_Rate'];
-//     }
+    else if (rateSelect === "mortality_rate"){
+      return +d['Mortality_Rate'];
+    }
+    else if (rateSelect === "test_rate"){
+      return +d['Testing_Rate'];
+    }
   });
 
   var title_text = function(rateSelect) {
     if (rateSelect === "incident_rate"){
       return "Cases per 100K Persons";
     }
-//     else if (rateSelect === "mortality_rate"){
-//       return "Deaths per 100 Confirmed Cases (CCs)";
-//     }
-//     else if (rateSelect === "test_rate"){
-//       return "Tests per 100K Persons";
-//     };
+    else if (rateSelect === "mortality_rate"){
+      return "Deaths per 100 Confirmed Cases (CCs)";
+    }
+    else if (rateSelect === "test_rate"){
+      return "Tests per 100K Persons";
+    };
   }
 
   var color_scale = d3.scaleLinear().domain([0, max_rate]).range(['white', rateColor]);
@@ -208,13 +208,13 @@ function(data) {
     	var confirmed	 = data[i].Confirmed	;
     	var deaths = data[i].Deaths;
     	var recovered = data[i].Recovered;
-//       var tested = data[i].People_Tested;
-//       var hospitalized = data[i].People_Hospitalized;
+      var tested = data[i].People_Tested;
+      var hospitalized = data[i].People_Hospitalized;
 
     	var incident_rate = data[i].Incident_Rate;
-//     	var mortality_rate = data[i].Mortality_Rate;
-//     	var test_rate = data[i].Testing_Rate;
-//     	var hospitalization_rate = data[i].Hospitalization_Rate;
+    	var mortality_rate = data[i].Mortality_Rate;
+    	var test_rate = data[i].Testing_Rate;
+    	var hospitalization_rate = data[i].Hospitalization_Rate;
 
       var last_update = d3.timeParse("%Y-%m-%d %H:%M:%S")(data[1].Last_Update);
 
@@ -229,15 +229,15 @@ function(data) {
         json.features[j].properties.confirmed = confirmed;
         json.features[j].properties.deaths = deaths;
         json.features[j].properties.recovered = recovered;
-//         json.features[j].properties.tested = tested;
-//         json.features[j].properties.hospitalized = hospitalized;
+        json.features[j].properties.tested = tested;
+        json.features[j].properties.hospitalized = hospitalized;
 
         json.features[j].properties.incident_rate = incident_rate;
-//         json.features[j].properties.mortality_rate = mortality_rate;
-//         json.features[j].properties.test_rate = test_rate;
-//         json.features[j].properties.hospitalization_rate = hospitalization_rate;
+        json.features[j].properties.mortality_rate = mortality_rate;
+        json.features[j].properties.test_rate = test_rate;
+        json.features[j].properties.hospitalization_rate = hospitalization_rate;
 
-//         json.features[j].properties.hospitalization_rate = hospitalization_rate;
+        json.features[j].properties.hospitalization_rate = hospitalization_rate;
         //json.features[j].properties.last_update = last_update;
 
 
@@ -266,12 +266,11 @@ function(data) {
                 "Cases: " + numberWithCommas(d.properties.confirmed) +"<br>" +
                 "Deaths: " + numberWithCommas(d.properties.deaths) +"<br>" +
                 // "Hosp.: " + d.properties.hospitalized + "<br>" +
-//                  "Tests: " + numberWithCommas(d.properties.tested) + "<br><br>" +
+                 "Tests: " + numberWithCommas(d.properties.tested) + "<br><br>" +
                 "Case Rate (per 100K): " + numberWithCommas(Math.round(d.properties.incident_rate)) + "<br>" +
-//                 "Death Rate (per 100CCs): " + numberWithCommas(Math.round(d.properties.mortality_rate*100)/100) + "<br>" +
+                "Death Rate (per 100CCs): " + numberWithCommas(Math.round(d.properties.mortality_rate*100)/100) + "<br>" +
                 // "Hosp Rate (%): " + Math.round(d.properties.hospitalization_rate) + "<br>"
-//                  "Testing Rate (per 100K): " + numberWithCommas(Math.round(d.properties.test_rate*10)/10) + 
-		"<br>"
+                 "Testing Rate (per 100K): " + numberWithCommas(Math.round(d.properties.test_rate*10)/10) + "<br>"
               )
           	})
 
